@@ -1,0 +1,281 @@
+<html>
+<head>
+</head>
+<body>
+        <canvas id="funcion" width="800" height="780" style=" border: 2px solid #000000"></canvas>
+        <script type="text/javascript">
+            var c = document.getElementById('funcion');
+            var lienzo = c.getContext('2d');
+            var matriz1 = new Array(); // inicializacion de la matriz
+            var matriz2 = new Array();
+
+            //Creacion de Ejes
+
+            lienzo.moveTo(30, 0);
+            lienzo.lineWidth = 3;
+            lienzo.strokeStyle = 'blue';
+            lienzo.lineTo(30, 750);
+            lienzo.lineTo(800, 750);
+            lienzo.stroke();
+
+            //Llamamiento de la funcion
+
+            lienzo.beginPath();
+            lienzo.font = "bold 25px sans-serif";
+            lienzo.fillStyle = '#000000';
+            lienzo.strokeStyle = '#FF6868';
+            multiplicarMatriz();
+            graficaMatriz();
+            
+            //Texto de Representacion
+            
+            lienzo.beginPath();
+            lienzo.font = "normal 12px sans-serif";
+            lienzo.fillStyle = "#FF6868";
+            lienzo.fillText("Calculo de la Multiplicacion", 0, 769);
+            lienzo.fillStyle = "9E6D00";
+            lienzo.fillText("Funcion Temporal: 13n^3+7n^2+4n+12", 400, 769);
+
+            //Generacion de matriz
+
+
+            function crearMatriz(n) {
+                for (i = 0; i < n; i++) {
+                    matriz1[i] = new Array();
+                    matriz2[i] = new Array();
+                    for (j = 0; j < n; j++) {
+                        matriz1[i][j] = Math.floor(Math.random() * 10);
+                        matriz2[i][j] = Math.floor(Math.random() * 10);
+                    }
+                }
+            }
+
+            //Calculo de Matriz
+
+            function multiplicarMatriz() {
+                var matrizf = new Array();
+                for (i = 5; i < 11; i++) {
+                    crearMatriz(i);
+                    corY = 1;
+                    for (j = 0; j < i; j++) {
+                        matrizf[j] = new Array();
+                        corY += 4;
+                        for (k = 0; k < i; k++) {
+                            corY += 5;
+                            matrizf[j][k] = 0;//3
+                            for (l = 0; l < i; l++) {
+                                matrizf[j][k] = matrizf[j][k] + matriz1[j][l] * matriz2[l][k];//11
+                                corY += 13;
+                            }
+                        }
+                        corY += 1;
+                    }
+                    corX = (i - 5) / 1.23 * 160 + 30;
+                    corY = 750 - corY / 17.37;
+                    if (i == 5)
+                        lienzo.moveTo(corX, corY);
+                    else
+                        lienzo.lineTo(corX, corY);
+                    lienzo.fillText('.', corX, corY);
+                    lienzo.stroke();
+                }
+            }
+
+            //Grafica de la funcion temporal
+
+            function graficaMatriz() {
+                lienzo.beginPath();
+                lienzo.font = "bold 25px sans-serif";
+                lienzo.fillStyle = '#000000';
+                lienzo.strokeStyle = '#9E6D00';
+
+                for (i = 5; i < 11; i++) {
+                    corX = (i - 5) / 1.23 * 160 + 30;
+                    corY = 13 * i * i * i + 7 * i * i + 4 * i + 12;
+                    corY = 750 - corY / 17.37;
+                    if (i == 5)
+                        lienzo.moveTo(corX, corY);
+                    else
+                        lienzo.lineTo(corX, corY);
+                    lienzo.fillText('.', corX, corY);
+                    lienzo.stroke();
+                }
+            }
+            //document.write("Multiplicacion de matrices");
+
+            
+            	
+
+	 var mat=null;
+         var mat1=null;			
+         var R= null;
+
+			 function F(){
+				 m = Number((document.getElementById("filasA")).value);
+				 n = Number((document.getElementById("columnasA")).value);
+				 p = Number((document.getElementById("columnasB")).value);
+				armarmatriz1(m,n);
+        			armarmatriz2(n,p);
+       				
+			}
+                        function armarmatriz1(m,n){
+                                 var t= document.getElementById("tablaA");
+                                for(i=0;i<m;i++){
+                                       var f=t.insertRow(-1);
+                                        for(j=0;j<n;j++){
+                                              var nid= ""+i+j;
+                                                 var z=f.insertCell(-1);
+                                               var  CELDA="<input type=\"text\"";
+                                                CELDA=CELDA+"id=\""+nid+"\"";
+                                                CELDA=CELDA+"size=\"3\">";
+                                                z.innerHTML=CELDA;    
+                                        }
+                                }
+                        }
+
+
+                        function armarmatriz2(n,p){
+                               var t= document.getElementById('tablaB');
+                                for(i=0;i<n;i++){
+                                     var f=t.insertRow(-1);
+                                        for(j=0;j<p;j++){
+                                               var nid= "b"+i+j;
+                                               var z=f.insertCell(-1);
+                                               var  CELDA="<input type=\"text\"";
+                                                 CELDA=CELDA+"id=\""+nid+"\"";
+                                                CELDA=CELDA+"size=\"3\">";
+                                                z.innerHTML=CELDA;    
+                                        }
+                                }
+				
+                        }
+                          
+                        
+
+			 function capturarmatriz1(m,n){
+                                mat= new Array(m);
+                                for(i=0;i<m;i++){
+                                    mat[i]= new Array (n);
+                                    for(j=0;j<n;j++){
+                                       var temp=document.getElementById(""+i+j).value;
+                                        mat[i][j]=Number(temp);
+
+                                    }
+                                }
+                        }
+
+                        function capturarmatriz2(n,p){
+                                 mat1= new Array(n);
+                                for(i=0;i<n;i++){
+                                    mat1[i]= new Array (p);
+                                    for(j=0;j<p;j++){
+				     xxx="b"+i+j;
+                                     var temp=document.getElementById(xxx).value;
+					
+                                        mat1[i][j]=Number(temp);
+                                    }
+                                } 
+                        }
+
+                        function mult(m,n,p){
+                                R=new Array(m);
+                                for(i=0;i<m;i++){
+                                    R[i]= new Array(p);
+                                    for(k=0;k<p;k++){
+                                        R[i][k]=0;
+                                        for(j=0;j<n;j++){
+                                            R[i][k]=R[i][k]+(mat[i][j]*mat1[j][k]);
+                                        }
+                                    }
+                                }
+                        }
+			
+			function multiplicar(m,n,p){
+			   capturarmatriz1(m,n);
+			   capturarmatriz2(n,p);
+			   mult(m,n,p);
+		           imprimir(m,p);
+			
+			
+			}
+			
+				
+
+
+
+			function imprimir(m,p){
+                             var t= document.getElementById('tablaC');
+                             for(i=0;i<m;i++){
+                                 var f=t.insertRow(-1);
+			         for(j=0;j<p;j++){
+  				     var z=f.insertCell(-1);
+				     var  CELDA="<input type=\"div\"";
+				     CELDA=CELDA+"value=\""+R[i][j]+"\"";
+                                     CELDA=CELDA+"size=\"3\">";
+                                     z.innerHTML=CELDA; 
+                        }}}
+
+                        function formula(m,n,p){
+				res = (((((13*n)+7)*p)+7)*m)+4;
+				var h = document.getElementById('form');
+				h.innerHTML= ""+res;
+                        }
+
+                        function contador(m,n,p){
+                                var c=4;
+				for(i=0;i<m;i++){
+                                         c=c+7;
+                                         for(k=0;k<p;k++){
+                                                 c=c+7;
+                                                 for(j=0;j<n;j++){
+                                                         c=c+13;
+                                                 }
+                                         }   
+                                }   
+                                var h = document.getElementById('cont');
+                                h.innerHTML= ""+c;
+                        }
+
+                        function ver(){
+                                var g = document.getElementById('verformula');
+                                g.innerHTML= "((13n+7)p+7)m+4";
+                                
+                                
+                                
+                        }
+        </script>
+<Input id="filasA" value="filas A">
+<Input id="columnasA" value="columnas A"><br>
+<Input id="columnasB" value="columnas B">
+<Input type="button" onclick="F();" value="crear matriz">
+
+<br>
+
+<table id="tablaA">
+<br>
+</table>
+
+<table id="tablaB">
+<br>
+</table>
+
+
+<input type="button" name="multiplicar" value="....MULTIPLICAR...." width="150" height="50" onclick="multiplicar(m,n,p);"/>
+<br>
+<table id="tablaC">
+<br>
+</table>
+<br>
+<br>
+<input type="button" name="formula" value="....FORMULA...." width="150" height="50" onclick="formula(m,n,p),ver();"/>
+<br>
+<div id="form"></div>
+<div id="verformula"></div>
+<br>
+<input type="button" name="contador" value="....CONTADOR...." width="150" height="50" onclick="contador(m,n,p);"/>
+<br>
+<div id="cont"></div>
+
+                  
+</body>
+</html>
